@@ -1,0 +1,15 @@
+name: Trigger Build and Test
+
+on: 
+  push:
+    branches:
+      - main  # Specify the branch you want to listen to for pushes
+  pull_request:
+    branches:
+      - main  # Specify the branch you want to listen to for pull requests
+
+jobs:
+  call-reusable-workflow:
+    uses: ./.github/workflows/build-test-deploy.yml
+    with:
+      node-version: '18.x'  # Specify the Node version or any other parameters you need
