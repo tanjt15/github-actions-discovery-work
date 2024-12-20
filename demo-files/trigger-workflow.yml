@@ -1,3 +1,4 @@
+# .github/workflows/trigger-build-and-test.yml
 name: Trigger Build and Test
 
 on: 
@@ -9,7 +10,13 @@ on:
       - main  # Specify the branch you want to listen to for pull requests
 
 jobs:
-  call-reusable-workflow:
+  call-build-test:
     uses: ./.github/workflows/build-test-deploy.yml
     with:
       node-version: '18.x'  # Specify the Node version or any other parameters you need
+
+  call-echo-secrets:
+    uses: ./.github/workflows/echo-secrets-variables.yml  # Reference to the reusable workflow
+    with:
+      my-variable: "This is not a secret"  # Pass the public variable
+      my-github-secret: ${{ secrets.MY_GITHUB_SECRET }}  # Pass the GitHub secret
